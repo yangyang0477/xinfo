@@ -1,6 +1,6 @@
 {
     "python.pythonPath": "D:\\ProgramFiles\\Anaconda3\\envs\\scrapy_py3\\python.exe",
-    "python.formatting.provider": "autopep8",
-    "python.linting.flake8Enabled": true
+    "python.linting.flake8Enabled": true,
+    "editor.fontSize": 18
 
 }
