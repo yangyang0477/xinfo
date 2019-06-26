@@ -14,6 +14,12 @@ BOT_NAME = 'xinfo'
 SPIDER_MODULES = ['xinfo.spiders']
 NEWSPIDER_MODULE = 'xinfo.spiders'
 
+#表示输出大于等于warning登机的log
+LOG_LEVEL = 'WARNING'
+#设置log本地文件位置
+LOG_FILE = './log.log'
+#定义user agent
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'xinfo (+http://www.yourdomain.com)'

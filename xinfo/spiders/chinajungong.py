@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
-import time
+import time,logging
+
+#创建logger实例，传入__name__，这样日志可以显示哪个spider的日志
+logger = logging.getLogger(__name__)
 
 class ChinajungongSpider(CrawlSpider):
     name = 'chinajungong'
@@ -21,5 +24,6 @@ class ChinajungongSpider(CrawlSpider):
         item['crawl_date'] = time.strftime('%Y-%m-%d')
         item['referer_web'] = response.xpath("//span[@class='news_info_from']/text()").extract() # 引用的网站名
         item['source'] = 'chinajungong.com'  # 来源网站(网易科技)
+        logger.warning(item)
         yield item
         #print(title,news_date,news_url,crawl_date,content,referer_web)
