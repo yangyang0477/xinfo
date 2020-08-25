@@ -3,6 +3,7 @@ import scrapy
 import logging
 logger = logging.getLogger(__name__)
 
+
 class TencentJobSpider(scrapy.Spider):
     name = 'tencent_job'
     allowed_domains = ['tencent.com']
@@ -14,18 +15,30 @@ class TencentJobSpider(scrapy.Spider):
         for div in div_list:
             item = {}
             item['title'] = div.xpath("./a/h4/text()").extract_first()
-            item['position'] = div.xpath("./a/p[1]/span[2]/text()").extract_first()
-            item['publish_date'] = div.xpath("./a/p[1]/span[4]/text()").extract_first()
+            item['position'] = div.xpath(
+                "./a/p[1]/span[2]/text()").extract_first()
+            item['publish_date'] = div.xpath(
+                "./a/p[1]/span[4]/text()").extract_first()
+            item['pub_url'] = div.xpath(
+                "./a/p[1]/span[3]/@href").extract_first()
             logger.wraning(item)
-            yield item
+            yield scrapy.Request(
+                url=item['pub_url'],
+                callback=self.parse_detail,
+                meta={"item": item}
+                # dont_filter = False 请求过的Url不会被过滤，一般前后采集的内容会增加的时候，dontfilter设置为false
+            )
+
         next_url = response.xpath("//a[@id='next']/@herf").extract_first()
         if next_url != 'javascript':
             next_url = 'http://hr.tencent.com/'+next_url
             yield scrapy.Request(
                 next_url,
-                callback=self.parse,
-                # meta = {"item":item}
-                # dont_filter = False 请求过的Url不会被过滤，一般前后采集的内容会增加的时候，dontfilter设置为false
+                callback=self.parse_detail
             )
-        # def parse1(self,response):
-        #     response.meta["item"]
+
+    def parse_detail(self, response):
+        item = response.meta["item"]
+        item['add'] = ''
+        item['hello'] = 'world'
+        yield item

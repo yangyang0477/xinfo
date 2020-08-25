@@ -22,6 +22,7 @@ class XinfoItem(scrapy.Item):
 class NewsItem(scrapy.Item):
     _id = scrapy.Field()  # id
     title = scrapy.Field()  # 标题
+    sub_title = scrapy.Field()  # 子标题
     abstract = scrapy.Field()  # 摘要
     news_date = scrapy.Field()  # 发布时间
     content = scrapy.Field()  # 正文
@@ -38,7 +39,7 @@ class NewsItem(scrapy.Item):
     catalogue = scrapy.Field()  # 所在网站所属目录
     tags = scrapy.Field()  # 标签
     keywords = scrapy.Field()  # 找到对应的关键词
-    source = scrapy.Field()  # 来源网站(网易科技)
+    source = scrapy.Field()  # 来源网站
 
 
 class WechatItem(scrapy.Item):
